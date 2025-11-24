@@ -28,6 +28,22 @@ const router = createRouter({
         title: 'Browse Categories',
       },
     },
+    {
+      path: '/about',
+      name: 'about',
+      component: () => import('../views/AboutView.vue'),
+      meta: {
+        title: 'About Us',
+      },
+    },
+    {
+      path: '/contact',
+      name: 'contact',
+      component: () => import('../views/ContactView.vue'),
+      meta: {
+        title: 'Contact Us',
+      },
+    },
     // Admin routes
     {
       path: '/admin/login',

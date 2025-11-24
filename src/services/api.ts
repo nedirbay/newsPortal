@@ -76,7 +76,14 @@ export const newsService = {
     async getNewsById (id: number | string): Promise<ApiResponse<NewsArticle>> {
         try {
             const response = await apiClient.get(API_ENDPOINTS.NEWS.DETAIL(id))
-            return response.data
+            console.log('News detail response:', response.data);
+
+            // Backend returns object directly, wrap it in ApiResponse format
+            return {
+                success: true,
+                data: response.data,
+                message: 'News detail fetched successfully'
+            };
         } catch (error) {
             console.log('Using mock data for news detail')
             return mockApi.getNewsById(id)

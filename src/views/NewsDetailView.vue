@@ -1,137 +1,114 @@
 <template>
   <div class="news-detail-view">
     <el-skeleton v-if="loading" :rows="10" animated class="detail-skeleton" />
-    
+
     <div v-else-if="article" class="detail-container">
       <!-- Back Button -->
       <div class="back-button-wrapper">
         <el-button @click="goBack" class="back-button">
-          <el-icon><ArrowLeft /></el-icon>
+          <el-icon>
+            <ArrowLeft />
+          </el-icon>
           Back to News
         </el-button>
       </div>
-      
+
       <!-- Article Header -->
       <article class="article">
         <div class="article-header">
           <div class="article-meta">
-            <el-tag :type="getCategoryType(article.category)" size="large" effect="dark">
-              {{ article.category }}
+            <el-tag :type="getCategoryType(article.newsCategory?.name || article.category)" size="large" effect="dark">
+              {{ article.newsCategory?.name || article.category }}
             </el-tag>
             <span class="article-date">
-              <el-icon><Clock /></el-icon>
+              <el-icon>
+                <Clock />
+              </el-icon>
               {{ formatDate(article.publishedDate) }}
             </span>
           </div>
-          
+
           <h1 class="article-title">{{ article.title }}</h1>
-          
+
           <div class="article-author-info">
             <el-avatar :size="48" class="author-avatar">
-              {{ article.author.charAt(0).toUpperCase() }}
+              {{ (article.author || 'Anonymous').charAt(0).toUpperCase() }}
             </el-avatar>
             <div class="author-details">
-              <span class="author-name">{{ article.author }}</span>
+              <span class="author-name">{{ article.author || 'Anonymous' }}</span>
               <div class="article-stats">
                 <span class="stat-item">
-                  <el-icon><View /></el-icon>
-                  {{ formatNumber(article.views) }} views
+                  <el-icon>
+                    <View />
+                  </el-icon>
+                  {{ formatNumber(article.views || 0) }} views
                 </span>
                 <span class="stat-item">
-                  <el-icon><ChatDotRound /></el-icon>
-                  {{ formatNumber(article.likes) }} likes
+                  <el-icon>
+                    <ChatDotRound />
+                  </el-icon>
+                  {{ formatNumber(article.likes || 0) }} likes
                 </span>
               </div>
             </div>
           </div>
         </div>
-        
+
         <!-- Featured Image -->
         <div class="article-image-wrapper">
-          <img :src="article.imageUrl" :alt="article.title" class="article-image" />
+          <img :src="getImageUrl(article.image || article.imageUrl)" :alt="article.title" class="article-image" />
         </div>
-        
+
         <!-- Article Content -->
         <div class="article-content">
-          <div class="article-summary">
+          <div v-if="article.summary" class="article-summary">
             {{ article.summary }}
           </div>
-          
+
           <div class="article-body" v-html="formatContent(article.content)"></div>
-          
+
           <!-- Tags -->
-          <div class="article-tags">
-            <el-icon><PriceTag /></el-icon>
-            <el-tag 
-              v-for="tag in article.tags" 
-              :key="tag" 
-              size="large"
-              effect="plain"
-              round
-            >
+          <div v-if="article.tags && article.tags.length > 0" class="article-tags">
+            <el-icon>
+              <PriceTag />
+            </el-icon>
+            <el-tag v-for="tag in article.tags" :key="tag" size="large" effect="plain" round>
               {{ tag }}
             </el-tag>
           </div>
-          
-          <!-- Share Buttons -->
-          <div class="article-share">
-            <h3 class="share-title">Share this article</h3>
-            <div class="share-buttons">
-              <el-button circle size="large" @click="share('twitter')">
-                <el-icon><Share /></el-icon>
-              </el-button>
-              <el-button circle size="large" @click="share('facebook')">
-                <el-icon><Share /></el-icon>
-              </el-button>
-              <el-button circle size="large" @click="share('linkedin')">
-                <el-icon><Share /></el-icon>
-              </el-button>
-              <el-button circle size="large" @click="copyLink">
-                <el-icon><Link /></el-icon>
-              </el-button>
-            </div>
-          </div>
         </div>
       </article>
-      
+
       <!-- Related News -->
       <section v-if="relatedNews.length > 0" class="related-section">
         <h2 class="section-title">
-          <el-icon><Reading /></el-icon>
+          <el-icon>
+            <Reading />
+          </el-icon>
           Related Articles
         </h2>
         <div class="related-grid">
-          <NewsCard 
-            v-for="news in relatedNews" 
-            :key="news.id" 
-            :article="news"
-          />
+          <NewsCard v-for="news in relatedNews" :key="news.id" :article="news" />
         </div>
       </section>
-      
+
       <!-- Comments Section -->
       <CommentSection :news-id="article.id" />
     </div>
-    
-    <el-empty 
-      v-else 
-      description="Article not found"
-      :image-size="200"
-    />
+
+    <el-empty v-else description="Article not found" :image-size="200" />
   </div>
 </template>
 
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-import { 
-  ArrowLeft, 
-  Clock, 
-  View, 
-  ChatDotRound, 
-  PriceTag, 
-  Share, 
-  Link,
+import {
+  ArrowLeft,
+  Clock,
+  View,
+  ChatDotRound,
+  PriceTag,
   Reading
 } from '@element-plus/icons-vue'
 import { ElMessage } from 'element-plus'
@@ -139,6 +116,7 @@ import NewsCard from '@/components/NewsCard.vue'
 import CommentSection from '@/components/CommentSection.vue'
 import type { NewsArticle } from '@/types'
 import { newsService } from '@/services/api'
+import { BASE_URL } from '@/config/baseUrl'
 
 const route = useRoute()
 const router = useRouter()
@@ -156,7 +134,9 @@ const loadArticle = async () => {
   loading.value = true
   try {
     const id = route.params.id as string
+    console.log('Loading article with ID:', id);
     const response = await newsService.getNewsById(id)
+    console.log('Article response:', response);
     if (response.success) {
       article.value = response.data
     }
@@ -171,14 +151,15 @@ const loadArticle = async () => {
 const loadRelatedNews = async () => {
   try {
     if (!article.value) return
-    
+
+    const categoryName = article.value.newsCategory?.name || article.value.category
     const response = await newsService.getNews({
-      category: article.value.category,
-      pageSize: 3,
+      category: categoryName,
+      pageSize: 4,
     })
-    
+
     if (response.success) {
-      relatedNews.value = response.data.filter(news => news.id !== article.value?.id)
+      relatedNews.value = response.data.filter(news => news.id !== article.value?.id).slice(0, 3)
     }
   } catch (error) {
     console.error('Failed to load related news:', error)
@@ -191,9 +172,9 @@ const goBack = () => {
 
 const formatDate = (date: string) => {
   const d = new Date(date)
-  return d.toLocaleDateString('en-US', { 
-    month: 'long', 
-    day: 'numeric', 
+  return d.toLocaleDateString('en-US', {
+    month: 'long',
+    day: 'numeric',
     year: 'numeric',
     hour: '2-digit',
     minute: '2-digit'
@@ -211,9 +192,11 @@ const formatContent = (content: string) => {
   return content.split('\n\n').map(p => `<p>${p}</p>`).join('')
 }
 
-const getCategoryType = (category: string) => {
+const getCategoryType = (category?: string) => {
+  if (!category) return 'info'
   const types: Record<string, any> = {
     'AI': 'primary',
+    'Artifial Intelligance': 'primary',
     'Web Development': 'success',
     'Mobile': 'warning',
     'Cloud': 'info',
@@ -222,13 +205,12 @@ const getCategoryType = (category: string) => {
   return types[category] || 'info'
 }
 
-const share = (platform: string) => {
-  ElMessage.success(`Sharing to ${platform}`)
-}
-
-const copyLink = () => {
-  navigator.clipboard.writeText(window.location.href)
-  ElMessage.success('Link copied to clipboard!')
+const getImageUrl = (imagePath?: string) => {
+  if (!imagePath) return ''
+  // If it's already a full URL, return it
+  if (imagePath.startsWith('http')) return imagePath
+  // Otherwise, combine with BASE_URL
+  return `${BASE_URL}/${imagePath}`
 }
 </script>
 
@@ -397,35 +379,6 @@ const copyLink = () => {
   color: #667eea;
 }
 
-.article-share {
-  text-align: center;
-}
-
-.share-title {
-  font-size: 18px;
-  font-weight: 600;
-  color: #1f2937;
-  margin: 0 0 20px 0;
-}
-
-.share-buttons {
-  display: flex;
-  justify-content: center;
-  gap: 12px;
-}
-
-.share-buttons .el-button {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  border: none;
-  color: white;
-  transition: all 0.3s;
-}
-
-.share-buttons .el-button:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
-}
-
 .related-section {
   margin-bottom: 48px;
 }
@@ -455,27 +408,27 @@ const copyLink = () => {
   .article-header {
     padding: 32px 24px 24px;
   }
-  
+
   .article-title {
     font-size: 32px;
   }
-  
+
   .article-image-wrapper {
     height: 300px;
   }
-  
+
   .article-content {
     padding: 32px 24px;
   }
-  
+
   .article-summary {
     font-size: 16px;
   }
-  
+
   .article-body {
     font-size: 16px;
   }
-  
+
   .related-grid {
     grid-template-columns: 1fr;
   }

@@ -28,30 +28,24 @@
                         <span>Categories</span>
                     </el-menu-item>
 
-                    <el-menu-item index="/trending">
+                    <el-menu-item index="/about">
                         <el-icon>
-                            <TrendCharts />
+                            <InfoFilled />
                         </el-icon>
-                        <span>Trending</span>
+                        <span>About</span>
                     </el-menu-item>
 
-                    <el-menu-item index="/latest">
+                    <el-menu-item index="/contact">
                         <el-icon>
-                            <Clock />
+                            <Message />
                         </el-icon>
-                        <span>Latest</span>
+                        <span>Contact</span>
                     </el-menu-item>
                 </el-menu>
             </nav>
 
-            <!-- Search Button -->
+            <!-- Actions -->
             <div class="header-actions">
-                <el-button circle class="action-btn search-btn" @click="toggleSearch">
-                    <el-icon>
-                        <Search />
-                    </el-icon>
-                </el-button>
-
                 <el-button circle class="action-btn theme-btn" @click="toggleTheme">
                     <el-icon>
                         <Sunny v-if="isDark" />
@@ -67,30 +61,6 @@
                 </el-button>
             </div>
         </div>
-
-        <!-- Search Drawer -->
-        <el-drawer v-model="searchDrawerVisible" title="Search News" direction="ttb" size="300px" :with-header="false"
-            class="search-drawer">
-            <div class="search-drawer-content">
-                <h3 class="search-drawer-title">
-                    <el-icon>
-                        <Search />
-                    </el-icon>
-                    Search Technology News
-                </h3>
-                <el-input v-model="searchQuery" placeholder="Type to search..." size="large" clearable
-                    @keyup.enter="handleSearch" autofocus>
-                    <template #prefix>
-                        <el-icon>
-                            <Search />
-                        </el-icon>
-                    </template>
-                </el-input>
-                <el-button type="primary" size="large" class="search-submit" @click="handleSearch">
-                    Search
-                </el-button>
-            </div>
-        </el-drawer>
 
         <!-- Mobile Menu Drawer -->
         <el-drawer v-model="mobileMenuVisible" title="Menu" direction="ltr" size="280px" class="mobile-drawer">
@@ -109,18 +79,18 @@
                     <span>Categories</span>
                 </el-menu-item>
 
-                <el-menu-item index="/trending">
+                <el-menu-item index="/about">
                     <el-icon>
-                        <TrendCharts />
+                        <InfoFilled />
                     </el-icon>
-                    <span>Trending</span>
+                    <span>About</span>
                 </el-menu-item>
 
-                <el-menu-item index="/latest">
+                <el-menu-item index="/contact">
                     <el-icon>
-                        <Clock />
+                        <Message />
                     </el-icon>
-                    <span>Latest</span>
+                    <span>Contact</span>
                 </el-menu-item>
             </el-menu>
         </el-drawer>
@@ -134,9 +104,8 @@ import {
     Reading,
     House,
     Grid,
-    TrendCharts,
-    Clock,
-    Search,
+    InfoFilled,
+    Message,
     Sunny,
     Moon,
     Menu,
@@ -145,9 +114,7 @@ import {
 const router = useRouter()
 const route = useRoute()
 
-const searchDrawerVisible = ref(false)
 const mobileMenuVisible = ref(false)
-const searchQuery = ref('')
 const isDark = ref(false)
 
 const activeRoute = computed(() => route.path)
@@ -165,24 +132,16 @@ const handleMobileMenuSelect = (index: string) => {
     mobileMenuVisible.value = false
 }
 
-const toggleSearch = () => {
-    searchDrawerVisible.value = !searchDrawerVisible.value
-}
-
 const toggleMobileMenu = () => {
     mobileMenuVisible.value = !mobileMenuVisible.value
 }
 
 const toggleTheme = () => {
     isDark.value = !isDark.value
-    console.log('Theme toggled:', isDark.value ? 'dark' : 'light')
-}
-
-const handleSearch = () => {
-    if (searchQuery.value.trim()) {
-        router.push({ path: '/', query: { search: searchQuery.value } })
-        searchDrawerVisible.value = false
-        searchQuery.value = ''
+    if (isDark.value) {
+        document.documentElement.classList.add('dark')
+    } else {
+        document.documentElement.classList.remove('dark')
     }
 }
 </script>
@@ -303,34 +262,6 @@ const handleSearch = () => {
     display: none;
 }
 
-.search-drawer-content {
-    padding: 40px 24px;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-}
-
-.search-drawer-title {
-    font-size: 24px;
-    font-weight: 700;
-    color: #1f2937;
-    margin: 0 0 8px 0;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-}
-
-.search-drawer-title .el-icon {
-    font-size: 28px;
-    color: #667eea;
-}
-
-.search-submit {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    border: none;
-    font-weight: 600;
-}
-
 .mobile-menu {
     border: none;
 }
@@ -377,10 +308,6 @@ const handleSearch = () => {
     .header-actions {
         gap: 8px;
     }
-}
-
-:deep(.search-drawer .el-drawer__body) {
-    padding: 0;
 }
 
 :deep(.mobile-drawer .el-drawer__header) {
