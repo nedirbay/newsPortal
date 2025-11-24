@@ -6,7 +6,7 @@
                 <el-icon class="sidebar-logo">
                     <Reading />
                 </el-icon>
-                <h2 class="sidebar-title">Admin Panel</h2>
+                <h2 class="sidebar-title">Admin Paneli</h2>
             </div>
 
             <el-menu :default-active="activeMenu" class="sidebar-menu" @select="handleMenuSelect">
@@ -14,28 +14,28 @@
                     <el-icon>
                         <Odometer />
                     </el-icon>
-                    <span>Dashboard</span>
+                    <span>Dolandyryş Paneli</span>
                 </el-menu-item>
 
                 <el-menu-item index="/admin/categories">
                     <el-icon>
                         <Grid />
                     </el-icon>
-                    <span>Categories</span>
+                    <span>Kategoriýalar</span>
                 </el-menu-item>
 
                 <el-menu-item index="/admin/tags">
                     <el-icon>
                         <PriceTag />
                     </el-icon>
-                    <span>Tags</span>
+                    <span>Tegler</span>
                 </el-menu-item>
 
                 <el-menu-item index="/admin/news">
                     <el-icon>
                         <Document />
                     </el-icon>
-                    <span>News</span>
+                    <span>Habarlar</span>
                 </el-menu-item>
             </el-menu>
 
@@ -44,7 +44,7 @@
                     <el-icon>
                         <SwitchButton />
                     </el-icon>
-                    <span>Logout</span>
+                    <span>Çykmak</span>
                 </el-button>
             </div>
         </aside>
@@ -94,12 +94,12 @@ const activeMenu = computed(() => route.path)
 
 const pageTitle = computed(() => {
     const titles: Record<string, string> = {
-        '/admin/dashboard': 'Dashboard',
-        '/admin/categories': 'Categories Management',
-        '/admin/tags': 'Tags Management',
-        '/admin/news': 'News Management',
+        '/admin/dashboard': 'Dolandyryş Paneli',
+        '/admin/categories': 'Kategoriýalary Dolandyrmak',
+        '/admin/tags': 'Tegleri Dolandyrmak',
+        '/admin/news': 'Habarlary Dolandyrmak',
     }
-    return titles[route.path] || 'Admin Panel'
+    return titles[route.path] || 'Admin Paneli'
 })
 
 const handleMenuSelect = (index: string) => {
@@ -113,17 +113,17 @@ const goToHome = () => {
 const handleLogout = async () => {
     try {
         await ElMessageBox.confirm(
-            'Are you sure you want to logout?',
-            'Confirm Logout',
+            'Çykmak isleýändigiňize ynanýarsyňyzmy?',
+            'Çykmagy Tassykla',
             {
-                confirmButtonText: 'Logout',
-                cancelButtonText: 'Cancel',
+                confirmButtonText: 'Çykmak',
+                cancelButtonText: 'Ýatyr',
                 type: 'warning',
             }
         )
 
         sessionStorage.removeItem('admin_logged_in')
-        ElMessage.success('Logged out successfully')
+        ElMessage.success('Üstünlikli çykyldy')
         router.push('/admin/login')
     } catch {
         // User cancelled

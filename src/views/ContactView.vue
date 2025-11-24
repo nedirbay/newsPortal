@@ -2,8 +2,8 @@
     <div class="contact-view">
         <div class="contact-container">
             <div class="contact-header">
-                <h1 class="title">Get in Touch</h1>
-                <p class="subtitle">Have questions or suggestions? We'd love to hear from you.</p>
+                <h1 class="title">Habarlaşyň</h1>
+                <p class="subtitle">Soraglaryňyz ýa-da teklipleriňiz barmy? Biz sizden habar almak isleýäris.</p>
             </div>
 
             <div class="contact-grid">
@@ -15,7 +15,7 @@
                                 <Location />
                             </el-icon>
                         </div>
-                        <h3>Visit Us</h3>
+                        <h3>Bize Baryň</h3>
                         <p>123 Tech Avenue<br />Silicon Valley, CA 94025</p>
                     </div>
 
@@ -25,7 +25,7 @@
                                 <Message />
                             </el-icon>
                         </div>
-                        <h3>Email Us</h3>
+                        <h3>Bize E-poçta Ýazyň</h3>
                         <p>contact@technews.com<br />support@technews.com</p>
                     </div>
 
@@ -35,34 +35,34 @@
                                 <Phone />
                             </el-icon>
                         </div>
-                        <h3>Call Us</h3>
-                        <p>+1 (555) 123-4567<br />Mon-Fri, 9am-6pm PST</p>
+                        <h3>Bize Jaň Ediň</h3>
+                        <p>+1 (555) 123-4567<br />Duş-Jum, 9:00-18:00</p>
                     </div>
                 </div>
 
                 <!-- Contact Form -->
                 <div class="contact-form-wrapper">
                     <el-form ref="formRef" :model="form" :rules="rules" label-position="top" class="contact-form">
-                        <el-form-item label="Name" prop="name">
-                            <el-input v-model="form.name" placeholder="Your name" size="large" />
+                        <el-form-item label="Adyňyz" prop="name">
+                            <el-input v-model="form.name" placeholder="Adyňyz" size="large" />
                         </el-form-item>
 
-                        <el-form-item label="Email" prop="email">
-                            <el-input v-model="form.email" placeholder="Your email" size="large" />
+                        <el-form-item label="E-poçta" prop="email">
+                            <el-input v-model="form.email" placeholder="E-poçtaňyz" size="large" />
                         </el-form-item>
 
-                        <el-form-item label="Subject" prop="subject">
-                            <el-input v-model="form.subject" placeholder="Subject" size="large" />
+                        <el-form-item label="Tema" prop="subject">
+                            <el-input v-model="form.subject" placeholder="Tema" size="large" />
                         </el-form-item>
 
-                        <el-form-item label="Message" prop="message">
-                            <el-input v-model="form.message" type="textarea" :rows="5" placeholder="Your message"
+                        <el-form-item label="Habar" prop="message">
+                            <el-input v-model="form.message" type="textarea" :rows="5" placeholder="Habaryňyz"
                                 size="large" />
                         </el-form-item>
 
                         <el-button type="primary" size="large" class="submit-btn" @click="submitForm"
                             :loading="loading">
-                            Send Message
+                            Habar Ugratmak
                         </el-button>
                     </el-form>
                 </div>
@@ -89,18 +89,18 @@ const form = reactive({
 
 const rules = reactive<FormRules>({
     name: [
-        { required: true, message: 'Please input your name', trigger: 'blur' },
-        { min: 3, message: 'Length should be at least 3 characters', trigger: 'blur' }
+        { required: true, message: 'Adyňyzy giriziň', trigger: 'blur' },
+        { min: 3, message: 'Uzynlygy azyndan 3 harp bolmaly', trigger: 'blur' }
     ],
     email: [
-        { required: true, message: 'Please input your email', trigger: 'blur' },
-        { type: 'email', message: 'Please input correct email address', trigger: 'blur' }
+        { required: true, message: 'E-poçtaňyzy giriziň', trigger: 'blur' },
+        { type: 'email', message: 'Dogry e-poçta salgysyny giriziň', trigger: 'blur' }
     ],
     subject: [
-        { required: true, message: 'Please input subject', trigger: 'blur' }
+        { required: true, message: 'Temany giriziň', trigger: 'blur' }
     ],
     message: [
-        { required: true, message: 'Please input message', trigger: 'blur' }
+        { required: true, message: 'Habary giriziň', trigger: 'blur' }
     ]
 })
 
@@ -113,7 +113,7 @@ const submitForm = async () => {
             // Simulate API call
             setTimeout(() => {
                 loading.value = false
-                ElMessage.success('Message sent successfully! We will get back to you soon.')
+                ElMessage.success('Habar üstünlikli ugradyldy! Biz tiz wagtda size jogap bereris.')
                 formRef.value?.resetFields()
             }, 1500)
         }

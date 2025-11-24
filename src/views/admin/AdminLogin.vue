@@ -6,30 +6,30 @@
                     <el-icon class="login-icon">
                         <Lock />
                     </el-icon>
-                    <h1 class="login-title">Admin Panel</h1>
-                    <p class="login-subtitle">Sign in to manage your content</p>
+                    <h1 class="login-title">Admin Paneli</h1>
+                    <p class="login-subtitle">Mazmuny dolandyrmak üçin giriň</p>
                 </div>
 
                 <el-form ref="loginFormRef" :model="loginForm" :rules="rules" class="login-form"
                     @submit.prevent="handleLogin">
                     <el-form-item prop="username">
-                        <el-input v-model="loginForm.username" placeholder="Username" size="large"
+                        <el-input v-model="loginForm.username" placeholder="Ulanyjy ady" size="large"
                             :prefix-icon="User" />
                     </el-form-item>
 
                     <el-form-item prop="password">
-                        <el-input v-model="loginForm.password" type="password" placeholder="Password" size="large"
+                        <el-input v-model="loginForm.password" type="password" placeholder="Açar sözi" size="large"
                             :prefix-icon="Lock" show-password @keyup.enter="handleLogin" />
                     </el-form-item>
 
                     <el-button type="primary" size="large" class="login-button" :loading="loading" @click="handleLogin">
-                        <span v-if="!loading">Sign In</span>
-                        <span v-else>Signing In...</span>
+                        <span v-if="!loading">Içeri Gir</span>
+                        <span v-else>Girilýär...</span>
                     </el-button>
                 </el-form>
 
                 <div class="login-footer">
-                    <p class="hint-text">Default credentials: admin / admin</p>
+                    <p class="hint-text">Bellenen maglumatlar: admin / admin</p>
                 </div>
             </div>
         </div>
@@ -54,10 +54,10 @@ const loginForm = reactive<LoginRequest>({
 
 const rules: FormRules = {
     username: [
-        { required: true, message: 'Please enter username', trigger: 'blur' },
+        { required: true, message: 'Ulanyjy adyny giriziň', trigger: 'blur' },
     ],
     password: [
-        { required: true, message: 'Please enter password', trigger: 'blur' },
+        { required: true, message: 'Açar sözüni giriziň', trigger: 'blur' },
     ],
 }
 
@@ -70,13 +70,13 @@ const handleLogin = async () => {
             try {
                 if (loginForm.username === 'admin' && loginForm.password === 'admin') {
                     sessionStorage.setItem('admin_logged_in', 'true')
-                    ElMessage.success('Login successful!')
+                    ElMessage.success('Üstünlikli girildi!')
                     router.push('/admin/dashboard')
                 } else {
-                    ElMessage.error('Invalid credentials')
+                    ElMessage.error('Nädogry maglumatlar')
                 }
             } catch (error) {
-                ElMessage.error('An error occurred during login')
+                ElMessage.error('Giriş wagtynda ýalňyşlyk ýüze çykdy')
             } finally {
                 loading.value = false
             }

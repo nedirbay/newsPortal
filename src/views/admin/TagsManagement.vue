@@ -5,16 +5,16 @@
                 <el-icon>
                     <Plus />
                 </el-icon>
-                Add Tag
+                Teg Goş
             </el-button>
         </div>
 
         <el-card class="data-card">
             <el-table :data="tags" v-loading="loading" stripe>
                 <el-table-column prop="id" label="ID" width="80" />
-                <el-table-column prop="name" label="Name" />
+                <el-table-column prop="name" label="Ady" />
                 <el-table-column prop="slug" label="Slug" />
-                <el-table-column label="Actions" width="200" align="center">
+                <el-table-column label="Hereketler" width="200" align="center">
                     <template #default="{ row }">
                         <el-button size="small" @click="showEditDialog(row)">
                             <el-icon>
@@ -34,19 +34,19 @@
         <!-- Create/Edit Dialog -->
         <el-dialog v-model="dialogVisible" :title="dialogTitle" width="500px">
             <el-form ref="formRef" :model="formData" :rules="rules" label-width="120px">
-                <el-form-item label="Name" prop="name">
-                    <el-input v-model="formData.name" placeholder="Enter tag name" />
+                <el-form-item label="Ady" prop="name">
+                    <el-input v-model="formData.name" placeholder="Teg adyny giriziň" />
                 </el-form-item>
 
                 <el-form-item label="Slug" prop="slug">
-                    <el-input v-model="formData.slug" placeholder="Enter slug" />
+                    <el-input v-model="formData.slug" placeholder="Slug giriziň" />
                 </el-form-item>
             </el-form>
 
             <template #footer>
-                <el-button @click="dialogVisible = false">Cancel</el-button>
+                <el-button @click="dialogVisible = false">Ýatyr</el-button>
                 <el-button type="primary" @click="handleSubmit" :loading="submitting">
-                    {{ isEdit ? 'Update' : 'Create' }}
+                    {{ isEdit ? 'Täzele' : 'Döret' }}
                 </el-button>
             </template>
         </el-dialog>
@@ -74,11 +74,11 @@ const formData = reactive<TagDTO>({
 })
 
 const rules: FormRules = {
-    name: [{ required: true, message: 'Please enter tag name', trigger: 'blur' }],
-    slug: [{ required: true, message: 'Please enter slug', trigger: 'blur' }],
+    name: [{ required: true, message: 'Teg adyny giriziň', trigger: 'blur' }],
+    slug: [{ required: true, message: 'Slug giriziň', trigger: 'blur' }],
 }
 
-const dialogTitle = computed(() => isEdit.value ? 'Edit Tag' : 'Add Tag')
+const dialogTitle = computed(() => isEdit.value ? 'Tegi Üýtget' : 'Teg Goş')
 
 onMounted(() => {
     loadTags()
@@ -91,7 +91,7 @@ const loadTags = async () => {
         if (response.success) {
             tags.value = response.data
         } else {
-            ElMessage.error(response.message || 'Failed to load tags')
+            ElMessage.error(response.message || 'Tegleri ýükläp bolmady')
         }
     } finally {
         loading.value = false
@@ -130,11 +130,11 @@ const handleSubmit = async () => {
                     : await adminTagService.create(formData)
 
                 if (response.success) {
-                    ElMessage.success(isEdit.value ? 'Tag updated successfully' : 'Tag created successfully')
+                    ElMessage.success(isEdit.value ? 'Teg üstünlikli täzelendi' : 'Teg üstünlikli döredildi')
                     dialogVisible.value = false
                     loadTags()
                 } else {
-                    ElMessage.error(response.message || 'Operation failed')
+                    ElMessage.error(response.message || 'Amal şowsuz boldy')
                 }
             } finally {
                 submitting.value = false
@@ -146,21 +146,21 @@ const handleSubmit = async () => {
 const handleDelete = async (id: number) => {
     try {
         await ElMessageBox.confirm(
-            'Are you sure you want to delete this tag?',
-            'Confirm Delete',
+            'Bu tegi pozmak isleýändigiňize ynanýarsyňyzmy?',
+            'Pozmagy Tassykla',
             {
-                confirmButtonText: 'Delete',
-                cancelButtonText: 'Cancel',
+                confirmButtonText: 'Poz',
+                cancelButtonText: 'Ýatyr',
                 type: 'warning',
             }
         )
 
         const response = await adminTagService.delete(id)
         if (response.success) {
-            ElMessage.success('Tag deleted successfully')
+            ElMessage.success('Teg üstünlikli pozuldy')
             loadTags()
         } else {
-            ElMessage.error(response.message || 'Delete failed')
+            ElMessage.error(response.message || 'Pozup bolmady')
         }
     } catch {
         // User cancelled

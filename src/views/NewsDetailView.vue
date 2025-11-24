@@ -9,7 +9,7 @@
           <el-icon>
             <ArrowLeft />
           </el-icon>
-          Back to News
+          Habarlara Dolmak
         </el-button>
       </div>
 
@@ -41,13 +41,13 @@
                   <el-icon>
                     <View />
                   </el-icon>
-                  {{ formatNumber(article.views || 0) }} views
+                  {{ formatNumber(article.views || 0) }} görlüş
                 </span>
                 <span class="stat-item">
                   <el-icon>
                     <ChatDotRound />
                   </el-icon>
-                  {{ formatNumber(article.likes || 0) }} likes
+                  {{ formatNumber(article.likes || 0) }} halanma
                 </span>
               </div>
             </div>
@@ -85,7 +85,7 @@
           <el-icon>
             <Reading />
           </el-icon>
-          Related Articles
+          Meňzeş Makalalar
         </h2>
         <div class="related-grid">
           <NewsCard v-for="news in relatedNews" :key="news.id" :article="news" />
@@ -96,7 +96,7 @@
       <CommentSection :news-id="article.id" />
     </div>
 
-    <el-empty v-else description="Article not found" :image-size="200" />
+    <el-empty v-else description="Makala tapylmady" :image-size="200" />
   </div>
 </template>
 
@@ -142,7 +142,7 @@ const loadArticle = async () => {
     }
   } catch (error) {
     console.error('Failed to load article:', error)
-    ElMessage.error('Failed to load article')
+    ElMessage.error('Makalany ýükläp bolmady')
   } finally {
     loading.value = false
   }

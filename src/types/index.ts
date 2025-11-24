@@ -41,6 +41,7 @@ export interface Category {
     name: string
     slug: string
     icon: string
+    description?: string
 }
 
 // Tag Interface

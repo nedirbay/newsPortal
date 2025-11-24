@@ -2,46 +2,46 @@
   <div class="about-view">
     <div class="about-container">
       <div class="about-header">
-        <h1 class="title">About TechNews</h1>
-        <p class="subtitle">Your trusted source for the latest technology news and insights.</p>
+        <h1 class="title">TechNews Barada</h1>
+        <p class="subtitle">Iň soňky tehnologiýa habarlary we düşünjeleri üçin ynamdar çeşmäňiz.</p>
       </div>
 
       <div class="content-section">
         <div class="text-content">
-          <h2>Our Mission</h2>
+          <h2>Biziň Maksadymyz</h2>
           <p>
-            At TechNews, we believe that technology is shaping the future of humanity. Our mission is to provide
-            accurate, timely, and insightful coverage of the technological advancements that are changing our world.
-            From artificial intelligence and blockchain to consumer electronics and software development, we cover it
-            all.
+            TechNews-de biz tehnologiýanyň adamzadyň geljegini şekillendirýändigine ynanýarys. Biziň maksadymyz
+            dünýämizi üýtgedýän tehnologiki ösüşler barada takyk, öz wagtynda we çuňňur maglumat bermekdir. Emeli aňdan
+            we blokçeýnden başlap, sarp ediş elektronikasy we programma üpjünçiligini ösdürmäge çenli ähli zady öz içine
+            alýarys.
           </p>
 
-          <h2>Who We Are</h2>
+          <h2>Biz Kim</h2>
           <p>
-            We are a team of passionate tech enthusiasts, developers, and journalists dedicated to bringing you
-            high-quality content. We strive to go beyond the headlines and explore the impact of technology on society,
-            business, and culture.
+            Biz size ýokary hilli mazmun hödürlemäge bagyşlanan tehnologiýa höwesjeňleri, işläp düzüjiler we
+            žurnalistler toparydyrys. Biz sözbaşylardan aňry geçip, tehnologiýanyň jemgyýete, işewürlige we medeniýete
+            täsirini öwrenmäge çalyşýarys.
           </p>
 
-          <h2>What We Offer</h2>
+          <h2>Näme Hödürleýäris</h2>
           <ul class="feature-list">
             <li>
               <el-icon>
                 <Monitor />
               </el-icon>
-              <span>In-depth tech reviews and analysis</span>
+              <span>Çuňňur tehniki synlar we seljermeler</span>
             </li>
             <li>
               <el-icon>
                 <Cpu />
               </el-icon>
-              <span>Latest industry trends and updates</span>
+              <span>Iň soňky senagat trendleri we täzelikler</span>
             </li>
             <li>
               <el-icon>
                 <Connection />
               </el-icon>
-              <span>Developer tutorials and resources</span>
+              <span>Işläp düzüjiler üçin gollanmalar we çeşmeler</span>
             </li>
           </ul>
         </div>
@@ -49,7 +49,7 @@
         <div class="image-content">
           <img
             src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
-            alt="Team working" class="about-image" />
+            alt="Topar işleýär" class="about-image" />
         </div>
       </div>
     </div>

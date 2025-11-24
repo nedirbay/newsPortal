@@ -5,14 +5,12 @@
             <div class="footer-top">
                 <div class="footer-brand">
                     <div class="footer-logo">
-                        <el-icon class="logo-icon">
-                            <Reading />
-                        </el-icon>
-                        <span class="logo-text">Tech<span class="logo-highlight">News</span></span>
+                        <img src="/logo.png" alt="TehnoHabar" class="logo-image" />
+                        <span class="logo-text">Tehno<span class="logo-highlight">Habar</span></span>
                     </div>
                     <p class="footer-description">
-                        Your trusted source for the latest technology news, trends, and innovations.
-                        Stay informed, stay ahead.
+                        Tehnologiýa habarlary, trendler we innowasiýalar üçin ynamdar çeşmäňiz.
+                        Habarly boluň, öňe gidiň.
                     </p>
                     <div class="footer-social">
                         <el-button circle class="social-btn">
@@ -40,30 +38,30 @@
 
                 <div class="footer-links">
                     <div class="footer-column">
-                        <h4 class="footer-title">Categories</h4>
+                        <h4 class="footer-title">Kategoriýalar</h4>
                         <ul class="footer-list">
-                            <li><a href="#" class="footer-link">Artificial Intelligence</a></li>
-                            <li><a href="#" class="footer-link">Web Development</a></li>
-                            <li><a href="#" class="footer-link">Mobile</a></li>
-                            <li><a href="#" class="footer-link">Cloud Computing</a></li>
+                            <li><a href="#" class="footer-link">Emeli Aň</a></li>
+                            <li><a href="#" class="footer-link">Web Ösüşi</a></li>
+                            <li><a href="#" class="footer-link">Mobil</a></li>
+                            <li><a href="#" class="footer-link">Bulut Tehnologiýalary</a></li>
                         </ul>
                     </div>
 
                     <div class="footer-column">
-                        <h4 class="footer-title">Quick Links</h4>
+                        <h4 class="footer-title">Çalt Baglanyşyklar</h4>
                         <ul class="footer-list">
-                            <li><a href="#" class="footer-link">About Us</a></li>
-                            <li><a href="#" class="footer-link">Contact</a></li>
-                            <li><a href="#" class="footer-link">Privacy Policy</a></li>
-                            <li><a href="#" class="footer-link">Terms of Service</a></li>
+                            <li><a href="#" class="footer-link">Biz Barada</a></li>
+                            <li><a href="#" class="footer-link">Habarlaşmak</a></li>
+                            <li><a href="#" class="footer-link">Gizlinlik Syýasaty</a></li>
+                            <li><a href="#" class="footer-link">Hyzmat Şertleri</a></li>
                         </ul>
                     </div>
 
                     <div class="footer-column">
-                        <h4 class="footer-title">Newsletter</h4>
-                        <p class="newsletter-text">Subscribe to get the latest tech news delivered to your inbox.</p>
+                        <h4 class="footer-title">Habarnama</h4>
+                        <p class="newsletter-text">Iň soňky tehnologiýa habarlaryny almak üçin ýazylyň.</p>
                         <div class="newsletter-form">
-                            <el-input v-model="email" placeholder="Enter your email" class="newsletter-input">
+                            <el-input v-model="email" placeholder="E-poçtaňyzy giriziň" class="newsletter-input">
                                 <template #suffix>
                                     <el-button type="primary" :icon="Position" circle @click="handleSubscribe" />
                                 </template>
@@ -76,7 +74,7 @@
             <!-- Footer Bottom -->
             <div class="footer-bottom">
                 <p class="copyright">
-                    © {{ currentYear }} TechNews. All rights reserved. Built with ❤️ using Vue 3 & Element Plus
+                    © {{ currentYear }} TehnoHabar. Ähli hukuklar goralan. Vue 3 & Element Plus bilen ❤️ döredildi
                 </p>
             </div>
         </div>
@@ -85,7 +83,7 @@
 
 <script setup lang="ts">
 import { ref, computed } from 'vue'
-import { Reading, Share, Position } from '@element-plus/icons-vue'
+import { Share, Position } from '@element-plus/icons-vue'
 import { ElMessage } from 'element-plus'
 
 const email = ref('')
@@ -93,16 +91,16 @@ const currentYear = computed(() => new Date().getFullYear())
 
 const handleSubscribe = () => {
     if (!email.value) {
-        ElMessage.warning('Please enter your email')
+        ElMessage.warning('E-poçtaňyzy giriziň')
         return
     }
 
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value)) {
-        ElMessage.error('Please enter a valid email address')
+        ElMessage.error('Dogry e-poçta salgysyny giriziň')
         return
     }
 
-    ElMessage.success('Successfully subscribed to newsletter!')
+    ElMessage.success('Habarnama üstünlikli ýazyldyňyz!')
     email.value = ''
 }
 </script>
@@ -141,12 +139,10 @@ const handleSubscribe = () => {
     gap: 12px;
 }
 
-.logo-icon {
-    font-size: 32px;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+.logo-image {
+    height: 40px;
+    width: auto;
+    border-radius: 8px;
 }
 
 .logo-text {

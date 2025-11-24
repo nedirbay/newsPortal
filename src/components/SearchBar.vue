@@ -1,77 +1,44 @@
 <template>
   <div class="search-bar">
     <div class="search-bar__main">
-      <el-input
-        v-model="searchQuery"
-        placeholder="Search technology news..."
-        class="search-bar__input"
-        size="large"
-        clearable
-        @keyup.enter="handleSearch"
-      >
+      <el-input v-model="searchQuery" placeholder="Tehnologiýa habarlaryny gözle..." class="search-bar__input"
+        size="large" clearable @keyup.enter="handleSearch">
         <template #prefix>
-          <el-icon class="search-icon"><Search /></el-icon>
+          <el-icon class="search-icon">
+            <Search />
+          </el-icon>
         </template>
       </el-input>
-      
-      <el-button 
-        type="primary" 
-        size="large" 
-        class="search-bar__button"
-        @click="handleSearch"
-      >
-        <el-icon><Search /></el-icon>
-        Search
+
+      <el-button type="primary" size="large" class="search-bar__button" @click="handleSearch">
+        <el-icon>
+          <Search />
+        </el-icon>
+        Gözle
       </el-button>
     </div>
-    
+
     <div class="search-bar__filters">
-      <el-select
-        v-model="selectedCategory"
-        placeholder="Category"
-        clearable
-        size="default"
-        class="search-bar__select"
-        @change="handleFilterChange"
-      >
-        <el-option
-          v-for="category in categories"
-          :key="category.id"
-          :label="category.name"
-          :value="category.slug"
-        />
+      <el-select v-model="selectedCategory" placeholder="Kategoriýa" clearable size="default" class="search-bar__select"
+        @change="handleFilterChange">
+        <el-option v-for="category in categories" :key="category.id" :label="category.name" :value="category.slug" />
       </el-select>
-      
-      <el-select
-        v-model="sortBy"
-        placeholder="Sort By"
-        size="default"
-        class="search-bar__select"
-        @change="handleFilterChange"
-      >
-        <el-option label="Latest" value="date" />
-        <el-option label="Most Viewed" value="views" />
-        <el-option label="Most Liked" value="likes" />
+
+      <el-select v-model="sortBy" placeholder="Tertiple" size="default" class="search-bar__select"
+        @change="handleFilterChange">
+        <el-option label="Iň soňky" value="date" />
+        <el-option label="Köp görülen" value="views" />
+        <el-option label="Köp halanan" value="likes" />
       </el-select>
-      
-      <el-date-picker
-        v-model="dateRange"
-        type="daterange"
-        range-separator="To"
-        start-placeholder="Start date"
-        end-placeholder="End date"
-        size="default"
-        class="search-bar__date"
-        @change="handleFilterChange"
-      />
-      
-      <el-button 
-        size="default" 
-        @click="handleReset"
-        class="search-bar__reset"
-      >
-        <el-icon><RefreshRight /></el-icon>
-        Reset
+
+      <el-date-picker v-model="dateRange" type="daterange" range-separator="-" start-placeholder="Başlanýan senesi"
+        end-placeholder="Gutarýan senesi" size="default" class="search-bar__date" @change="handleFilterChange" />
+
+      <el-button size="default" @click="handleReset" class="search-bar__reset">
+        <el-icon>
+          <RefreshRight />
+        </el-icon>
+        Arassala
       </el-button>
     </div>
   </div>
@@ -113,12 +80,12 @@ const handleSearch = () => {
     sortBy: sortBy.value as 'date' | 'views' | 'likes',
     sortOrder: 'desc',
   }
-  
+
   if (dateRange.value) {
     params.dateFrom = dateRange.value[0].toISOString()
     params.dateTo = dateRange.value[1].toISOString()
   }
-  
+
   emit('search', params)
 }
 
@@ -226,15 +193,15 @@ const handleReset = () => {
   .search-bar {
     padding: 24px;
   }
-  
+
   .search-bar__main {
     flex-direction: column;
   }
-  
+
   .search-bar__filters {
     flex-direction: column;
   }
-  
+
   .search-bar__select,
   .search-bar__date {
     width: 100%;

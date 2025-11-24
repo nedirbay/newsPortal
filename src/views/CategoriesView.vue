@@ -3,8 +3,8 @@
         <!-- Hero Section -->
         <div class="hero-section">
             <div class="hero-content">
-                <h1 class="hero-title">Browse by Category</h1>
-                <p class="hero-subtitle">Explore technology news organized by topics</p>
+                <h1 class="hero-title">Kategoriýa Boýunça Gözle</h1>
+                <p class="hero-subtitle">Temalar boýunça guralan tehnologiýa habarlaryny öwreniň</p>
             </div>
         </div>
 
@@ -40,19 +40,19 @@
                         <el-icon>
                             <Document />
                         </el-icon>
-                        {{ getCategoryName(selectedCategory) }} News
+                        {{ getCategoryName(selectedCategory) }} Habarlary
                     </h2>
                     <el-button @click="clearFilter" text>
                         <el-icon>
                             <Close />
                         </el-icon>
-                        Clear Filter
+                        Filtri Arassala
                     </el-button>
                 </div>
 
                 <el-skeleton v-if="loadingNews" :rows="5" animated :count="6" class="news-skeleton" />
 
-                <el-empty v-else-if="newsList.length === 0" description="No news found in this category"
+                <el-empty v-else-if="newsList.length === 0" description="Bu kategoriýada habar tapylmady"
                     :image-size="200" />
 
                 <div v-else class="trending-grid">
@@ -62,7 +62,7 @@
                             class="trending-item__image" />
                         <div class="trending-item__overlay">
                             <span class="trending-item__category">{{ article.newsCategory?.name || article.category
-                            }}</span>
+                                }}</span>
                             <h3 class="trending-item__title">{{ article.title }}</h3>
                         </div>
                     </div>
@@ -83,13 +83,13 @@
                         <el-icon>
                             <Document />
                         </el-icon>
-                        Latest News
+                        Iň Soňky Habarlar
                     </h2>
                 </div>
 
                 <el-skeleton v-if="loadingLatestNews" :rows="5" animated :count="6" class="news-skeleton" />
 
-                <el-empty v-else-if="latestNews.length === 0" description="No news available" :image-size="200" />
+                <el-empty v-else-if="latestNews.length === 0" description="Habar elýeterli däl" :image-size="200" />
 
                 <div v-else class="trending-grid">
                     <div v-for="article in latestNews" :key="article.id" class="trending-item"
@@ -98,7 +98,7 @@
                             class="trending-item__image" />
                         <div class="trending-item__overlay">
                             <span class="trending-item__category">{{ article.newsCategory?.name || article.category
-                            }}</span>
+                                }}</span>
                             <h3 class="trending-item__title">{{ article.title }}</h3>
                         </div>
                     </div>
@@ -183,7 +183,7 @@ const loadCategories = async () => {
         }
     } catch (error) {
         console.error('Failed to load categories:', error)
-        ElMessage.error('Failed to load categories')
+        ElMessage.error('Kategoriýalary ýükläp bolmady')
     } finally {
         loadingCategories.value = false
     }
@@ -211,7 +211,7 @@ const loadNews = async () => {
         }
     } catch (error) {
         console.error('Failed to load news:', error)
-        ElMessage.error('Failed to load news')
+        ElMessage.error('Habarlary ýükläp bolmady')
     } finally {
         loadingNews.value = false
     }
@@ -235,7 +235,7 @@ const loadLatestNews = async () => {
         }
     } catch (error) {
         console.error('Failed to load latest news:', error)
-        ElMessage.error('Failed to load latest news')
+        ElMessage.error('Iň soňky habarlary ýükläp bolmady')
     } finally {
         loadingLatestNews.value = false
     }

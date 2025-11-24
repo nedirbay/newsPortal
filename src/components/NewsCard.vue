@@ -1,58 +1,60 @@
 <template>
-  <el-card 
-    class="news-card" 
-    :body-style="{ padding: '0px' }"
-    shadow="hover"
-    @click="handleClick"
-  >
+  <el-card class="news-card" :body-style="{ padding: '0px' }" shadow="hover" @click="handleClick">
     <div class="news-card__image-wrapper">
       <img :src="article.imageUrl" :alt="article.title" class="news-card__image" />
       <div class="news-card__category">{{ article.category }}</div>
       <div v-if="article.featured" class="news-card__featured">
-        <el-icon><Star /></el-icon>
+        <el-icon>
+          <Star />
+        </el-icon>
       </div>
     </div>
-    
+
     <div class="news-card__content">
       <div class="news-card__meta">
         <span class="news-card__author">
-          <el-icon><User /></el-icon>
+          <el-icon>
+            <User />
+          </el-icon>
           {{ article.author }}
         </span>
         <span class="news-card__date">
-          <el-icon><Clock /></el-icon>
+          <el-icon>
+            <Clock />
+          </el-icon>
           {{ formatDate(article.publishedDate) }}
         </span>
       </div>
-      
+
       <h3 class="news-card__title">{{ article.title }}</h3>
       <p class="news-card__summary">{{ article.summary }}</p>
-      
+
       <div class="news-card__tags">
-        <el-tag 
-          v-for="tag in article.tags.slice(0, 3)" 
-          :key="tag" 
-          size="small"
-          effect="plain"
-        >
+        <el-tag v-for="tag in (article.tags || []).slice(0, 3)" :key="tag" size="small" effect="plain">
           {{ tag }}
         </el-tag>
       </div>
-      
+
       <div class="news-card__footer">
         <div class="news-card__stats">
           <span class="news-card__stat">
-            <el-icon><View /></el-icon>
-            {{ formatNumber(article.views) }}
+            <el-icon>
+              <View />
+            </el-icon>
+            {{ formatNumber(article.views || 0) }}
           </span>
           <span class="news-card__stat">
-            <el-icon><ChatDotRound /></el-icon>
-            {{ formatNumber(article.likes) }}
+            <el-icon>
+              <ChatDotRound />
+            </el-icon>
+            {{ formatNumber(article.likes || 0) }}
           </span>
         </div>
         <el-button type="primary" link>
-          Read More
-          <el-icon class="el-icon--right"><ArrowRight /></el-icon>
+          Giňişleýin
+          <el-icon class="el-icon--right">
+            <ArrowRight />
+          </el-icon>
         </el-button>
       </div>
     </div>
@@ -80,15 +82,15 @@ const formatDate = (date: string) => {
   const now = new Date()
   const diff = now.getTime() - d.getTime()
   const days = Math.floor(diff / (1000 * 60 * 60 * 24))
-  
-  if (days === 0) return 'Today'
-  if (days === 1) return 'Yesterday'
-  if (days < 7) return `${days} days ago`
-  
-  return d.toLocaleDateString('en-US', { 
-    month: 'short', 
-    day: 'numeric', 
-    year: 'numeric' 
+
+  if (days === 0) return 'Şu gün'
+  if (days === 1) return 'Düýn'
+  if (days < 7) return `${days} gün öň`
+
+  return d.toLocaleDateString('tk-TM', {
+    month: 'short',
+    day: 'numeric',
+    year: 'numeric'
   })
 }
 
@@ -250,11 +252,11 @@ const formatNumber = (num: number) => {
   .news-card__image-wrapper {
     height: 180px;
   }
-  
+
   .news-card__content {
     padding: 16px;
   }
-  
+
   .news-card__title {
     font-size: 18px;
   }

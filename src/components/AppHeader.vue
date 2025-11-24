@@ -3,10 +3,8 @@
         <div class="header-container">
             <!-- Logo -->
             <div class="header-logo" @click="goHome">
-                <el-icon class="logo-icon">
-                    <Reading />
-                </el-icon>
-                <span class="logo-text">Tech<span class="logo-highlight">News</span></span>
+                <img src="/logo.png" alt="TehnoHabar" class="logo-image" />
+                <span class="logo-text">Tehno<span class="logo-highlight">Habar</span></span>
             </div>
 
             <!-- Desktop Navigation -->
@@ -18,28 +16,28 @@
                         <el-icon>
                             <House />
                         </el-icon>
-                        <span>Home</span>
+                        <span>Baş Sahypa</span>
                     </el-menu-item>
 
                     <el-menu-item index="/categories">
                         <el-icon>
                             <Grid />
                         </el-icon>
-                        <span>Categories</span>
+                        <span>Kategoriýalar</span>
                     </el-menu-item>
 
                     <el-menu-item index="/about">
                         <el-icon>
                             <InfoFilled />
                         </el-icon>
-                        <span>About</span>
+                        <span>Biz Barada</span>
                     </el-menu-item>
 
                     <el-menu-item index="/contact">
                         <el-icon>
                             <Message />
                         </el-icon>
-                        <span>Contact</span>
+                        <span>Habarlaşmak</span>
                     </el-menu-item>
                 </el-menu>
             </nav>
@@ -63,34 +61,34 @@
         </div>
 
         <!-- Mobile Menu Drawer -->
-        <el-drawer v-model="mobileMenuVisible" title="Menu" direction="ltr" size="280px" class="mobile-drawer">
+        <el-drawer v-model="mobileMenuVisible" title="Menýu" direction="ltr" size="280px" class="mobile-drawer">
             <el-menu :default-active="activeRoute" class="mobile-menu" @select="handleMobileMenuSelect">
                 <el-menu-item index="/">
                     <el-icon>
                         <House />
                     </el-icon>
-                    <span>Home</span>
+                    <span>Baş Sahypa</span>
                 </el-menu-item>
 
                 <el-menu-item index="/categories">
                     <el-icon>
                         <Grid />
                     </el-icon>
-                    <span>Categories</span>
+                    <span>Kategoriýalar</span>
                 </el-menu-item>
 
                 <el-menu-item index="/about">
                     <el-icon>
                         <InfoFilled />
                     </el-icon>
-                    <span>About</span>
+                    <span>Biz Barada</span>
                 </el-menu-item>
 
                 <el-menu-item index="/contact">
                     <el-icon>
                         <Message />
                     </el-icon>
-                    <span>Contact</span>
+                    <span>Habarlaşmak</span>
                 </el-menu-item>
             </el-menu>
         </el-drawer>
@@ -101,7 +99,6 @@
 import { ref, computed, onMounted } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import {
-    Reading,
     House,
     Grid,
     InfoFilled,
@@ -191,12 +188,10 @@ onMounted(() => {
     transform: translateY(-2px);
 }
 
-.logo-icon {
-    font-size: 32px;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+.logo-image {
+    height: 40px;
+    width: auto;
+    border-radius: 8px;
 }
 
 .logo-text {

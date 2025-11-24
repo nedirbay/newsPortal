@@ -5,25 +5,25 @@
                 <el-icon>
                     <Plus />
                 </el-icon>
-                Add News
+                Habar Goş
             </el-button>
         </div>
 
         <el-card class="data-card">
             <el-table :data="newsList" v-loading="loading" stripe>
                 <el-table-column prop="id" label="ID" width="80" />
-                <el-table-column prop="title" label="Title" min-width="200" />
-                <el-table-column prop="author" label="Author" width="120" />
-                <el-table-column prop="category" label="Category" width="120" />
-                <el-table-column prop="publishedDate" label="Published" width="120" />
-                <el-table-column label="Featured" width="100" align="center">
+                <el-table-column prop="title" label="Sözbaşy" min-width="200" />
+                <el-table-column prop="author" label="Awtor" width="120" />
+                <el-table-column prop="category" label="Kategoriýa" width="120" />
+                <el-table-column prop="publishedDate" label="Çap Edilen" width="120" />
+                <el-table-column label="Saýlanan" width="100" align="center">
                     <template #default="{ row }">
                         <el-tag :type="row.featured ? 'success' : 'info'" size="small">
-                            {{ row.featured ? 'Yes' : 'No' }}
+                            {{ row.featured ? 'Hawa' : 'Ýok' }}
                         </el-tag>
                     </template>
                 </el-table-column>
-                <el-table-column label="Actions" width="200" align="center">
+                <el-table-column label="Hereketler" width="200" align="center">
                     <template #default="{ row }">
                         <el-button size="small" @click="showEditDialog(row)">
                             <el-icon>
@@ -43,46 +43,47 @@
         <!-- Create/Edit Dialog -->
         <el-dialog v-model="dialogVisible" :title="dialogTitle" width="800px" top="5vh">
             <el-form ref="formRef" :model="formData" :rules="rules" label-width="120px">
-                <el-form-item label="Title" prop="title">
-                    <el-input v-model="formData.title" placeholder="Enter news title" />
+                <el-form-item label="Sözbaşy" prop="title">
+                    <el-input v-model="formData.title" placeholder="Habar sözbaşysyny giriziň" />
                 </el-form-item>
 
-                <el-form-item label="Summary" prop="summary">
-                    <el-input v-model="formData.summary" type="textarea" :rows="2" placeholder="Enter summary" />
+                <el-form-item label="Gysgaça Mazmun" prop="summary">
+                    <el-input v-model="formData.summary" type="textarea" :rows="2"
+                        placeholder="Gysgaça mazmuny giriziň" />
                 </el-form-item>
 
-                <el-form-item label="Content" prop="content">
-                    <el-input v-model="formData.content" type="textarea" :rows="6" placeholder="Enter content" />
+                <el-form-item label="Mazmun" prop="content">
+                    <el-input v-model="formData.content" type="textarea" :rows="6" placeholder="Mazmuny giriziň" />
                 </el-form-item>
 
-                <el-form-item label="Author" prop="author">
-                    <el-input v-model="formData.author" placeholder="Enter author name" />
+                <el-form-item label="Awtor" prop="author">
+                    <el-input v-model="formData.author" placeholder="Awtor adyny giriziň" />
                 </el-form-item>
 
-                <el-form-item label="Category" prop="category">
-                    <el-input v-model="formData.category" placeholder="Enter category" />
+                <el-form-item label="Kategoriýa" prop="category">
+                    <el-input v-model="formData.category" placeholder="Kategoriýany giriziň" />
                 </el-form-item>
 
-                <el-form-item label="Image URL" prop="imageUrl">
-                    <el-input v-model="formData.imageUrl" placeholder="Enter image URL" />
+                <el-form-item label="Surat URL" prop="imageUrl">
+                    <el-input v-model="formData.imageUrl" placeholder="Surat URL-ni giriziň" />
                 </el-form-item>
 
-                <el-form-item label="Tags">
+                <el-form-item label="Tegler">
                     <el-select v-model="formData.tags" multiple filterable allow-create
-                        placeholder="Select or create tags" style="width: 100%">
+                        placeholder="Tegleri saýlaň ýa-da dörediň" style="width: 100%">
                         <el-option v-for="tag in availableTags" :key="tag" :label="tag" :value="tag" />
                     </el-select>
                 </el-form-item>
 
-                <el-form-item label="Featured">
+                <el-form-item label="Saýlanan">
                     <el-switch v-model="formData.featured" />
                 </el-form-item>
             </el-form>
 
             <template #footer>
-                <el-button @click="dialogVisible = false">Cancel</el-button>
+                <el-button @click="dialogVisible = false">Ýatyr</el-button>
                 <el-button type="primary" @click="handleSubmit" :loading="submitting">
-                    {{ isEdit ? 'Update' : 'Create' }}
+                    {{ isEdit ? 'Täzele' : 'Döret' }}
                 </el-button>
             </template>
         </el-dialog>
@@ -105,8 +106,8 @@ const newsList = ref<NewsArticle[]>([])
 const formRef = ref<FormInstance>()
 
 const availableTags = ref<string[]>([
-    'AI', 'Machine Learning', 'Web Development', 'Mobile', 'Cloud',
-    'Security', 'DevOps', 'Frontend', 'Backend', 'Database'
+    'Emeli Aň', 'Maşyn Öwreniş', 'Web Ösüşi', 'Mobil', 'Bulut Tehnologiýalary',
+    'Howpsuzlyk', 'DevOps', 'Frontend', 'Backend', 'Maglumatlar Bazasy'
 ])
 
 const formData = reactive<NewsDTO>({
@@ -121,15 +122,15 @@ const formData = reactive<NewsDTO>({
 })
 
 const rules: FormRules = {
-    title: [{ required: true, message: 'Please enter title', trigger: 'blur' }],
-    content: [{ required: true, message: 'Please enter content', trigger: 'blur' }],
-    summary: [{ required: true, message: 'Please enter summary', trigger: 'blur' }],
-    author: [{ required: true, message: 'Please enter author', trigger: 'blur' }],
-    category: [{ required: true, message: 'Please enter category', trigger: 'blur' }],
-    imageUrl: [{ required: true, message: 'Please enter image URL', trigger: 'blur' }],
+    title: [{ required: true, message: 'Sözbaşyny giriziň', trigger: 'blur' }],
+    content: [{ required: true, message: 'Mazmuny giriziň', trigger: 'blur' }],
+    summary: [{ required: true, message: 'Gysgaça mazmuny giriziň', trigger: 'blur' }],
+    author: [{ required: true, message: 'Awtory giriziň', trigger: 'blur' }],
+    category: [{ required: true, message: 'Kategoriýany giriziň', trigger: 'blur' }],
+    imageUrl: [{ required: true, message: 'Surat URL-ni giriziň', trigger: 'blur' }],
 }
 
-const dialogTitle = computed(() => isEdit.value ? 'Edit News' : 'Add News')
+const dialogTitle = computed(() => isEdit.value ? 'Habary Üýtget' : 'Habar Goş')
 
 onMounted(() => {
     loadNews()
@@ -142,7 +143,7 @@ const loadNews = async () => {
         if (response.success) {
             newsList.value = response.data
         } else {
-            ElMessage.error(response.message || 'Failed to load news')
+            ElMessage.error(response.message || 'Habarlary ýükläp bolmady')
         }
     } finally {
         loading.value = false
@@ -160,11 +161,11 @@ const showEditDialog = (news: NewsArticle) => {
     editId.value = news.id
     formData.title = news.title
     formData.content = news.content
-    formData.summary = news.summary
-    formData.author = news.author
-    formData.category = news.category
-    formData.imageUrl = news.imageUrl
-    formData.tags = [...news.tags]
+    formData.summary = news.summary || ''
+    formData.author = news.author || ''
+    formData.category = news.category || ''
+    formData.imageUrl = news.imageUrl || ''
+    formData.tags = news.tags ? [...news.tags] : []
     formData.featured = news.featured || false
     dialogVisible.value = true
 }
@@ -193,11 +194,11 @@ const handleSubmit = async () => {
                     : await adminNewsService.create(formData)
 
                 if (response.success) {
-                    ElMessage.success(isEdit.value ? 'News updated successfully' : 'News created successfully')
+                    ElMessage.success(isEdit.value ? 'Habar üstünlikli täzelendi' : 'Habar üstünlikli döredildi')
                     dialogVisible.value = false
                     loadNews()
                 } else {
-                    ElMessage.error(response.message || 'Operation failed')
+                    ElMessage.error(response.message || 'Amal şowsuz boldy')
                 }
             } finally {
                 submitting.value = false
@@ -209,21 +210,21 @@ const handleSubmit = async () => {
 const handleDelete = async (id: number) => {
     try {
         await ElMessageBox.confirm(
-            'Are you sure you want to delete this news?',
-            'Confirm Delete',
+            'Bu habary pozmak isleýändigiňize ynanýarsyňyzmy?',
+            'Pozmagy Tassykla',
             {
-                confirmButtonText: 'Delete',
-                cancelButtonText: 'Cancel',
+                confirmButtonText: 'Poz',
+                cancelButtonText: 'Ýatyr',
                 type: 'warning',
             }
         )
 
         const response = await adminNewsService.delete(id)
         if (response.success) {
-            ElMessage.success('News deleted successfully')
+            ElMessage.success('Habar üstünlikli pozuldy')
             loadNews()
         } else {
-            ElMessage.error(response.message || 'Delete failed')
+            ElMessage.error(response.message || 'Pozup bolmady')
         }
     } catch {
         // User cancelled

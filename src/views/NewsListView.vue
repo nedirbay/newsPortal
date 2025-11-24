@@ -3,12 +3,12 @@
     <!-- Hero Section with Search -->
     <div class="hero-section">
       <div class="hero-content">
-        <h1 class="hero-title">Technology News Portal</h1>
-        <p class="hero-subtitle">Stay updated with the latest technology trends and innovations</p>
+        <h1 class="hero-title">Tehnologiýa Habarlar Portaly</h1>
+        <p class="hero-subtitle">Iň soňky tehnologiýa trendleri we innowasiýalar bilen habarly boluň</p>
 
         <!-- Search Box -->
         <div class="hero-search">
-          <el-input v-model="searchQuery" placeholder="Search news by title..." size="large" clearable
+          <el-input v-model="searchQuery" placeholder="Habarlary sözbaşy boýunça gözle..." size="large" clearable
             class="search-input" @keyup.enter="handleQuickSearch">
             <template #prefix>
               <el-icon class="search-icon">
@@ -20,7 +20,7 @@
             <el-icon>
               <Search />
             </el-icon>
-            Search
+            Gözle
           </el-button>
         </div>
       </div>
@@ -34,7 +34,7 @@
           <el-icon>
             <TrendCharts />
           </el-icon>
-          Trending Now
+          Häzirki Trendler
         </h2>
         <div class="trending-grid">
           <div v-for="news in trendingNews" :key="news.id" class="trending-item" @click="goToDetail(news.id)">
@@ -96,7 +96,7 @@ const loadNews = async () => {
     }
   } catch (error) {
     console.error('Failed to load news:', error)
-    ElMessage.error('Failed to load news articles')
+    ElMessage.error('Habar makalalaryny ýükläp bolmady')
   } finally {
     loading.value = false
   }

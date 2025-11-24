@@ -2,122 +2,92 @@
   <div class="comment-section">
     <div class="comment-section__header">
       <h3 class="comment-section__title">
-        <el-icon><ChatDotRound /></el-icon>
-        Comments ({{ comments.length }})
+        <el-icon>
+          <ChatDotRound />
+        </el-icon>
+        Teswirler ({{ comments.length }})
       </h3>
     </div>
-    
+
     <!-- Comment Form -->
     <div class="comment-form">
-      <el-input
-        v-model="newComment.author"
-        placeholder="Your name"
-        class="comment-form__input"
-        size="large"
-      >
+      <el-input v-model="newComment.author" placeholder="Adyňyz" class="comment-form__input" size="large">
         <template #prefix>
-          <el-icon><User /></el-icon>
+          <el-icon>
+            <User />
+          </el-icon>
         </template>
       </el-input>
-      
-      <el-input
-        v-model="newComment.content"
-        type="textarea"
-        :rows="4"
-        placeholder="Share your thoughts..."
-        class="comment-form__textarea"
-        maxlength="500"
-        show-word-limit
-      />
-      
-      <el-button 
-        type="primary" 
-        size="large"
-        class="comment-form__submit"
-        :loading="submitting"
-        @click="handleSubmit"
-      >
-        <el-icon><Position /></el-icon>
-        Post Comment
+
+      <el-input v-model="newComment.content" type="textarea" :rows="4" placeholder="Pikirleriňizi paýlaşyň..."
+        class="comment-form__textarea" maxlength="500" show-word-limit />
+
+      <el-button type="primary" size="large" class="comment-form__submit" :loading="submitting" @click="handleSubmit">
+        <el-icon>
+          <Position />
+        </el-icon>
+        Teswir goý
       </el-button>
     </div>
-    
+
     <!-- Comments List -->
     <div class="comments-list">
-      <el-empty 
-        v-if="comments.length === 0" 
-        description="No comments yet. Be the first to comment!"
-        :image-size="120"
-      />
-      
-      <div 
-        v-for="comment in comments" 
-        :key="comment.id" 
-        class="comment-item"
-      >
+      <el-empty v-if="comments.length === 0" description="Heniz teswir ýok. Ilkinji teswir ýazan boluň!"
+        :image-size="120" />
+
+      <div v-for="comment in comments" :key="comment.id" class="comment-item">
         <div class="comment-item__avatar">
           <el-avatar :size="48">
             {{ comment.author.charAt(0).toUpperCase() }}
           </el-avatar>
         </div>
-        
+
         <div class="comment-item__content">
           <div class="comment-item__header">
             <span class="comment-item__author">{{ comment.author }}</span>
             <span class="comment-item__date">{{ formatDate(comment.createdDate) }}</span>
           </div>
-          
+
           <p class="comment-item__text">{{ comment.content }}</p>
-          
+
           <div class="comment-item__actions">
-            <el-button 
-              text 
-              size="small"
-              @click="handleLike(comment.id)"
-            >
-              <el-icon><ChatDotRound /></el-icon>
-              {{ comment.likes }} Likes
+            <el-button text size="small" @click="handleLike(comment.id)">
+              <el-icon>
+                <ChatDotRound />
+              </el-icon>
+              {{ comment.likes }} Halanlar
             </el-button>
-            
-            <el-button 
-              text 
-              size="small"
-              @click="handleReply(comment.id)"
-            >
-              <el-icon><ChatLineRound /></el-icon>
-              Reply
+
+            <el-button text size="small" @click="handleReply(comment.id)">
+              <el-icon>
+                <ChatLineRound />
+              </el-icon>
+              Jogap ber
             </el-button>
-            
-            <el-button 
-              text 
-              size="small"
-              type="danger"
-              @click="handleDelete(comment.id)"
-            >
-              <el-icon><Delete /></el-icon>
-              Delete
+
+            <el-button text size="small" type="danger" @click="handleDelete(comment.id)">
+              <el-icon>
+                <Delete />
+              </el-icon>
+              Poz
             </el-button>
           </div>
-          
+
           <!-- Replies -->
           <div v-if="comment.replies && comment.replies.length > 0" class="comment-replies">
-            <div 
-              v-for="reply in comment.replies" 
-              :key="reply.id" 
-              class="comment-item comment-item--reply"
-            >
+            <div v-for="reply in comment.replies" :key="reply.id" class="comment-item comment-item--reply">
               <div class="comment-item__avatar">
                 <el-avatar :size="36">
                   {{ reply.author.charAt(0).toUpperCase() }}
                 </el-avatar>
               </div>
-              
+
               <div class="comment-item__content">
                 <div class="comment-item__header">
                   <span class="comment-item__author">{{ reply.author }}</span>
                   <span class="comment-item__date">{{ formatDate(reply.createdDate) }}</span>
                 </div>
-                
+
                 <p class="comment-item__text">{{ reply.content }}</p>
               </div>
             </div>
@@ -130,12 +100,12 @@
 
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
-import { 
-  ChatDotRound, 
-  User, 
-  Position, 
-  ChatLineRound, 
-  Delete 
+import {
+  ChatDotRound,
+  User,
+  Position,
+  ChatLineRound,
+  Delete
 } from '@element-plus/icons-vue'
 import { ElMessage, ElMessageBox } from 'element-plus'
 import type { Comment, CommentDTO } from '@/types'
@@ -166,27 +136,27 @@ const loadComments = async () => {
     }
   } catch (error) {
     console.error('Failed to load comments:', error)
-    ElMessage.error('Failed to load comments')
+    ElMessage.error('Teswirleri ýükläp bolmady')
   }
 }
 
 const handleSubmit = async () => {
   if (!newComment.value.author || !newComment.value.content) {
-    ElMessage.warning('Please fill in all fields')
+    ElMessage.warning('Ähli meýdançalary dolduryň')
     return
   }
-  
+
   submitting.value = true
   try {
     const response = await commentService.createComment(props.newsId, newComment.value)
     if (response.success) {
-      ElMessage.success('Comment posted successfully!')
+      ElMessage.success('Teswir üstünlikli goýuldy!')
       newComment.value = { author: '', content: '' }
       await loadComments()
     }
   } catch (error) {
     console.error('Failed to post comment:', error)
-    ElMessage.error('Failed to post comment')
+    ElMessage.error('Teswir goýup bolmady')
   } finally {
     submitting.value = false
   }
@@ -194,35 +164,35 @@ const handleSubmit = async () => {
 
 const handleLike = (commentId: number) => {
   // Implement like functionality
-  ElMessage.info('Like functionality to be implemented')
+  ElMessage.info('Halamak funksiýasy ýakynda goşular')
 }
 
 const handleReply = (commentId: number) => {
   // Implement reply functionality
-  ElMessage.info('Reply functionality to be implemented')
+  ElMessage.info('Jogap bermek funksiýasy ýakynda goşular')
 }
 
 const handleDelete = async (commentId: number) => {
   try {
     await ElMessageBox.confirm(
-      'Are you sure you want to delete this comment?',
-      'Warning',
+      'Bu teswiri pozmak isleýärsiňizmi?',
+      'Duýduryş',
       {
-        confirmButtonText: 'Delete',
-        cancelButtonText: 'Cancel',
+        confirmButtonText: 'Poz',
+        cancelButtonText: 'Ýatyr',
         type: 'warning',
       }
     )
-    
+
     const response = await commentService.deleteComment(props.newsId, commentId)
     if (response.success) {
-      ElMessage.success('Comment deleted successfully')
+      ElMessage.success('Teswir üstünlikli pozuldy')
       await loadComments()
     }
   } catch (error) {
     if (error !== 'cancel') {
       console.error('Failed to delete comment:', error)
-      ElMessage.error('Failed to delete comment')
+      ElMessage.error('Teswiri pozup bolmady')
     }
   }
 }
@@ -234,16 +204,16 @@ const formatDate = (date: string) => {
   const minutes = Math.floor(diff / (1000 * 60))
   const hours = Math.floor(diff / (1000 * 60 * 60))
   const days = Math.floor(diff / (1000 * 60 * 60 * 24))
-  
-  if (minutes < 1) return 'Just now'
-  if (minutes < 60) return `${minutes} minutes ago`
-  if (hours < 24) return `${hours} hours ago`
-  if (days < 7) return `${days} days ago`
-  
-  return d.toLocaleDateString('en-US', { 
-    month: 'short', 
-    day: 'numeric', 
-    year: 'numeric' 
+
+  if (minutes < 1) return 'Şu wagt'
+  if (minutes < 60) return `${minutes} minut öň`
+  if (hours < 24) return `${hours} sagat öň`
+  if (days < 7) return `${days} gün öň`
+
+  return d.toLocaleDateString('tk-TM', {
+    month: 'short',
+    day: 'numeric',
+    year: 'numeric'
   })
 }
 </script>
@@ -394,11 +364,11 @@ const formatDate = (date: string) => {
   .comment-section {
     padding: 20px;
   }
-  
+
   .comment-form {
     padding: 16px;
   }
-  
+
   .comment-item {
     padding: 16px;
   }

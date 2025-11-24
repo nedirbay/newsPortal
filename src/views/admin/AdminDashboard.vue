@@ -9,7 +9,7 @@
                         </el-icon>
                         <div class="stat-info">
                             <div class="stat-value">{{ stats.totalNews }}</div>
-                            <div class="stat-label">Total News</div>
+                            <div class="stat-label">Jemi Habarlar</div>
                         </div>
                     </div>
                 </el-card>
@@ -23,7 +23,7 @@
                         </el-icon>
                         <div class="stat-info">
                             <div class="stat-value">{{ stats.totalCategories }}</div>
-                            <div class="stat-label">Categories</div>
+                            <div class="stat-label">Kategoriýalar</div>
                         </div>
                     </div>
                 </el-card>
@@ -37,7 +37,7 @@
                         </el-icon>
                         <div class="stat-info">
                             <div class="stat-value">{{ stats.totalTags }}</div>
-                            <div class="stat-label">Tags</div>
+                            <div class="stat-label">Tegler</div>
                         </div>
                     </div>
                 </el-card>
@@ -51,7 +51,7 @@
                         </el-icon>
                         <div class="stat-info">
                             <div class="stat-value">{{ stats.totalViews }}</div>
-                            <div class="stat-label">Total Views</div>
+                            <div class="stat-label">Jemi Görlüş</div>
                         </div>
                     </div>
                 </el-card>
@@ -63,7 +63,7 @@
                 <el-card>
                     <template #header>
                         <div class="card-header">
-                            <span>Quick Actions</span>
+                            <span>Çalt Hereketler</span>
                         </div>
                     </template>
                     <div class="quick-actions">
@@ -71,19 +71,19 @@
                             <el-icon>
                                 <Document />
                             </el-icon>
-                            Manage News
+                            Habarlary Dolandyr
                         </el-button>
                         <el-button type="success" @click="goTo('/admin/categories')">
                             <el-icon>
                                 <Grid />
                             </el-icon>
-                            Manage Categories
+                            Kategoriýalary Dolandyr
                         </el-button>
                         <el-button type="warning" @click="goTo('/admin/tags')">
                             <el-icon>
                                 <PriceTag />
                             </el-icon>
-                            Manage Tags
+                            Tegleri Dolandyr
                         </el-button>
                     </div>
                 </el-card>

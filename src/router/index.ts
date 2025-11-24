@@ -9,7 +9,7 @@ const router = createRouter({
       name: 'news-list',
       component: NewsListView,
       meta: {
-        title: 'Technology News Portal',
+        title: 'Tehnologiýa Habarlar Portaly',
       },
     },
     {
@@ -17,7 +17,7 @@ const router = createRouter({
       name: 'news-detail',
       component: () => import('../views/NewsDetailView.vue'),
       meta: {
-        title: 'News Article',
+        title: 'Habar Makalasy',
       },
     },
     {
@@ -25,7 +25,7 @@ const router = createRouter({
       name: 'categories',
       component: () => import('../views/CategoriesView.vue'),
       meta: {
-        title: 'Browse Categories',
+        title: 'Kategoriýalara Göz Aýlaň',
       },
     },
     {
@@ -33,7 +33,7 @@ const router = createRouter({
       name: 'about',
       component: () => import('../views/AboutView.vue'),
       meta: {
-        title: 'About Us',
+        title: 'Biz Barada',
       },
     },
     {
@@ -41,7 +41,7 @@ const router = createRouter({
       name: 'contact',
       component: () => import('../views/ContactView.vue'),
       meta: {
-        title: 'Contact Us',
+        title: 'Habarlaşmak',
       },
     },
     // Admin routes
@@ -50,7 +50,7 @@ const router = createRouter({
       name: 'admin-login',
       component: () => import('../views/admin/AdminLogin.vue'),
       meta: {
-        title: 'Admin Login',
+        title: 'Admin Giriş',
       },
     },
     {
@@ -65,7 +65,7 @@ const router = createRouter({
           name: 'admin-dashboard',
           component: () => import('../views/admin/AdminDashboard.vue'),
           meta: {
-            title: 'Admin Dashboard',
+            title: 'Admin Dolandyryş Paneli',
             requiresAuth: true,
           },
         },
@@ -74,7 +74,7 @@ const router = createRouter({
           name: 'admin-categories',
           component: () => import('../views/admin/CategoriesManagement.vue'),
           meta: {
-            title: 'Manage Categories',
+            title: 'Kategoriýalary Dolandyrmak',
             requiresAuth: true,
           },
         },
@@ -83,7 +83,7 @@ const router = createRouter({
           name: 'admin-tags',
           component: () => import('../views/admin/TagsManagement.vue'),
           meta: {
-            title: 'Manage Tags',
+            title: 'Tegleri Dolandyrmak',
             requiresAuth: true,
           },
         },
@@ -92,7 +92,7 @@ const router = createRouter({
           name: 'admin-news',
           component: () => import('../views/admin/NewsManagement.vue'),
           meta: {
-            title: 'Manage News',
+            title: 'Habarlary Dolandyrmak',
             requiresAuth: true,
           },
         },
@@ -103,7 +103,7 @@ const router = createRouter({
 
 // Navigation guard for page titles and authentication
 router.beforeEach((to, from, next) => {
-  document.title = (to.meta.title as string) || 'Technology News Portal'
+  document.title = (to.meta.title as string) || 'Tehnologiýa Habarlar Portaly'
 
   // Check if route requires authentication
   if (to.meta.requiresAuth) {

@@ -5,17 +5,17 @@
                 <el-icon>
                     <Plus />
                 </el-icon>
-                Add Category
+                Kategoriýa Goş
             </el-button>
         </div>
 
         <el-card class="data-card">
             <el-table :data="categories" v-loading="loading" stripe>
                 <el-table-column prop="id" label="ID" width="80" />
-                <el-table-column prop="name" label="Name" />
+                <el-table-column prop="name" label="Ady" />
                 <el-table-column prop="slug" label="Slug" />
-                <el-table-column prop="description" label="Description" />
-                <el-table-column label="Actions" width="200" align="center">
+                <el-table-column prop="description" label="Düşündiriş" />
+                <el-table-column label="Hereketler" width="200" align="center">
                     <template #default="{ row }">
                         <el-button size="small" @click="showEditDialog(row)">
                             <el-icon>
@@ -35,19 +35,19 @@
         <!-- Create/Edit Dialog -->
         <el-dialog v-model="dialogVisible" :title="dialogTitle" width="500px">
             <el-form ref="formRef" :model="formData" :rules="rules" label-width="120px">
-                <el-form-item label="Name" prop="name">
-                    <el-input v-model="formData.name" placeholder="Enter category name" />
+                <el-form-item label="Ady" prop="name">
+                    <el-input v-model="formData.name" placeholder="Kategoriýa adyny giriziň" />
                 </el-form-item>
 
                 <el-form-item label="Slug" prop="slug">
-                    <el-input v-model="formData.slug" placeholder="Enter slug" />
+                    <el-input v-model="formData.slug" placeholder="Slug giriziň" />
                 </el-form-item>
             </el-form>
 
             <template #footer>
-                <el-button @click="dialogVisible = false">Cancel</el-button>
+                <el-button @click="dialogVisible = false">Ýatyr</el-button>
                 <el-button type="primary" @click="handleSubmit" :loading="submitting">
-                    {{ isEdit ? 'Update' : 'Create' }}
+                    {{ isEdit ? 'Täzele' : 'Döret' }}
                 </el-button>
             </template>
         </el-dialog>
@@ -76,11 +76,11 @@ const formData = reactive<CategoryDTO>({
 })
 
 const rules: FormRules = {
-    name: [{ required: true, message: 'Please enter category name', trigger: 'blur' }],
-    slug: [{ required: true, message: 'Please enter slug', trigger: 'blur' }],
+    name: [{ required: true, message: 'Kategoriýa adyny giriziň', trigger: 'blur' }],
+    slug: [{ required: true, message: 'Slug giriziň', trigger: 'blur' }],
 }
 
-const dialogTitle = computed(() => isEdit.value ? 'Edit Category' : 'Add Category')
+const dialogTitle = computed(() => isEdit.value ? 'Kategoriýany Üýtget' : 'Kategoriýa Goş')
 
 onMounted(() => {
     loadCategories()
@@ -93,7 +93,7 @@ const loadCategories = async () => {
         if (response.success) {
             categories.value = response.data
         } else {
-            ElMessage.error(response.message || 'Failed to load categories')
+            ElMessage.error(response.message || 'Kategoriýalary ýükläp bolmady')
         }
     } finally {
         loading.value = false
@@ -134,11 +134,11 @@ const handleSubmit = async () => {
                     : await adminCategoryService.create(formData)
 
                 if (response.success) {
-                    ElMessage.success(isEdit.value ? 'Category updated successfully' : 'Category created successfully')
+                    ElMessage.success(isEdit.value ? 'Kategoriýa üstünlikli täzelendi' : 'Kategoriýa üstünlikli döredildi')
                     dialogVisible.value = false
                     loadCategories()
                 } else {
-                    ElMessage.error(response.message || 'Operation failed')
+                    ElMessage.error(response.message || 'Amal şowsuz boldy')
                 }
             } finally {
                 submitting.value = false
@@ -150,21 +150,21 @@ const handleSubmit = async () => {
 const handleDelete = async (id: number) => {
     try {
         await ElMessageBox.confirm(
-            'Are you sure you want to delete this category?',
-            'Confirm Delete',
+            'Bu kategoriýany pozmak isleýändigiňize ynanýarsyňyzmy?',
+            'Pozmagy Tassykla',
             {
-                confirmButtonText: 'Delete',
-                cancelButtonText: 'Cancel',
+                confirmButtonText: 'Poz',
+                cancelButtonText: 'Ýatyr',
                 type: 'warning',
             }
         )
 
         const response = await adminCategoryService.delete(id)
         if (response.success) {
-            ElMessage.success('Category deleted successfully')
+            ElMessage.success('Kategoriýa üstünlikli pozuldy')
             loadCategories()
         } else {
-            ElMessage.error(response.message || 'Delete failed')
+            ElMessage.error(response.message || 'Pozup bolmady')
         }
     } catch {
         // User cancelled
