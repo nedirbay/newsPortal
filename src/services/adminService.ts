@@ -10,16 +10,15 @@ import type {
     NewsArticle,
     NewsDTO,
 } from '@/types'
-import BASE_URL from '@/config/baseUrl'
-import API_ENDPOINTS from '@/config/apiEndpoints'
-const API_BASE = BASE_URL.BASE_URL
+import { BASE_URL, API_ENDPOINTS } from '@/config/baseUrl'
+const API_BASE = BASE_URL
 
 // Admin Authentication
 export const adminAuthService = {
     async login (credentials: LoginRequest): Promise<LoginResponse> {
         try {
             const response = await axios.post<LoginResponse>(
-                `${API_BASE}${BASE_URL.ADMIN.LOGIN}`,
+                `${API_BASE}${API_ENDPOINTS.ADMIN.LOGIN}`,
                 credentials
             )
             if (response.data.token) {
@@ -56,7 +55,7 @@ export const adminCategoryService = {
     async getAll (): Promise<ApiResponse<Category[]>> {
         try {
             const response = await axios.get<ApiResponse<Category[]>>(
-                `${API_BASE}${BASE_URL.ADMIN.CATEGORIES.LIST}`,
+                `${API_BASE}${API_ENDPOINTS.ADMIN.CATEGORIES.LIST}`,
                 { headers: getAuthHeaders() }
             )
             return response.data
@@ -69,7 +68,7 @@ export const adminCategoryService = {
     async create (category: CategoryDTO): Promise<ApiResponse<Category>> {
         try {
             const response = await axios.post<ApiResponse<Category>>(
-                `${API_BASE}${BASE_URL.ADMIN.CATEGORIES.CREATE}`,
+                `${API_BASE}${API_ENDPOINTS.ADMIN.CATEGORIES.CREATE}`,
                 category,
                 { headers: getAuthHeaders() }
             )
@@ -83,7 +82,7 @@ export const adminCategoryService = {
     async update (id: number, category: CategoryDTO): Promise<ApiResponse<Category>> {
         try {
             const response = await axios.put<ApiResponse<Category>>(
-                `${API_BASE}${BASE_URL.ADMIN.CATEGORIES.UPDATE(id)}`,
+                `${API_BASE}${API_ENDPOINTS.ADMIN.CATEGORIES.UPDATE(id)}`,
                 category,
                 { headers: getAuthHeaders() }
             )
@@ -97,7 +96,7 @@ export const adminCategoryService = {
     async delete (id: number): Promise<ApiResponse<void>> {
         try {
             const response = await axios.delete<ApiResponse<void>>(
-                `${API_BASE}${BASE_URL.ADMIN.CATEGORIES.DELETE(id)}`,
+                `${API_BASE}${API_ENDPOINTS.ADMIN.CATEGORIES.DELETE(id)}`,
                 { headers: getAuthHeaders() }
             )
             return response.data
@@ -113,7 +112,7 @@ export const adminTagService = {
     async getAll (): Promise<ApiResponse<Tag[]>> {
         try {
             const response = await axios.get<ApiResponse<Tag[]>>(
-                `${API_BASE}${BASE_URL.ADMIN.TAGS.LIST}`,
+                `${API_BASE}${API_ENDPOINTS.ADMIN.TAGS.LIST}`,
                 { headers: getAuthHeaders() }
             )
             return response.data
@@ -126,7 +125,7 @@ export const adminTagService = {
     async create (tag: TagDTO): Promise<ApiResponse<Tag>> {
         try {
             const response = await axios.post<ApiResponse<Tag>>(
-                `${API_BASE}${BASE_URL.ADMIN.TAGS.CREATE}`,
+                `${API_BASE}${API_ENDPOINTS.ADMIN.TAGS.CREATE}`,
                 tag,
                 { headers: getAuthHeaders() }
             )
@@ -140,7 +139,7 @@ export const adminTagService = {
     async update (id: number, tag: TagDTO): Promise<ApiResponse<Tag>> {
         try {
             const response = await axios.put<ApiResponse<Tag>>(
-                `${API_BASE}${BASE_URL.ADMIN.TAGS.UPDATE(id)}`,
+                `${API_BASE}${API_ENDPOINTS.ADMIN.TAGS.UPDATE(id)}`,
                 tag,
                 { headers: getAuthHeaders() }
             )
@@ -154,7 +153,7 @@ export const adminTagService = {
     async delete (id: number): Promise<ApiResponse<void>> {
         try {
             const response = await axios.delete<ApiResponse<void>>(
-                `${API_BASE}${BASE_URL.ADMIN.TAGS.DELETE(id)}`,
+                `${API_BASE}${API_ENDPOINTS.ADMIN.TAGS.DELETE(id)}`,
                 { headers: getAuthHeaders() }
             )
             return response.data
@@ -170,7 +169,7 @@ export const adminNewsService = {
     async getAll (): Promise<ApiResponse<NewsArticle[]>> {
         try {
             const response = await axios.get<ApiResponse<NewsArticle[]>>(
-                `${API_BASE}${BASE_URL.ADMIN.NEWS.LIST}`,
+                `${API_BASE}${API_ENDPOINTS.ADMIN.NEWS.LIST}`,
                 { headers: getAuthHeaders() }
             )
             return response.data
@@ -183,7 +182,7 @@ export const adminNewsService = {
     async create (news: NewsDTO): Promise<ApiResponse<NewsArticle>> {
         try {
             const response = await axios.post<ApiResponse<NewsArticle>>(
-                `${API_BASE}${BASE_URL.ADMIN.NEWS.CREATE}`,
+                `${API_BASE}${API_ENDPOINTS.ADMIN.NEWS.CREATE}`,
                 news,
                 { headers: getAuthHeaders() }
             )
@@ -197,7 +196,7 @@ export const adminNewsService = {
     async update (id: number, news: NewsDTO): Promise<ApiResponse<NewsArticle>> {
         try {
             const response = await axios.put<ApiResponse<NewsArticle>>(
-                `${API_BASE}${BASE_URL.ADMIN.NEWS.UPDATE(id)}`,
+                `${API_BASE}${API_ENDPOINTS.ADMIN.NEWS.UPDATE(id)}`,
                 news,
                 { headers: getAuthHeaders() }
             )
@@ -211,7 +210,7 @@ export const adminNewsService = {
     async delete (id: number): Promise<ApiResponse<void>> {
         try {
             const response = await axios.delete<ApiResponse<void>>(
-                `${API_BASE}${BASE_URL.ADMIN.NEWS.DELETE(id)}`,
+                `${API_BASE}${API_ENDPOINTS.ADMIN.NEWS.DELETE(id)}`,
                 { headers: getAuthHeaders() }
             )
             return response.data

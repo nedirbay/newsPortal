@@ -63,7 +63,7 @@ import { Monitor, Cpu, Connection } from '@element-plus/icons-vue'
 <style scoped>
 .about-view {
   min-height: 100vh;
-  background: linear-gradient(180deg, #f8f9fa 0%, #ffffff 100%);
+  background: var(--el-bg-color);
   padding: 60px 20px;
 }
 
@@ -80,7 +80,7 @@ import { Monitor, Cpu, Connection } from '@element-plus/icons-vue'
 .title {
   font-size: 48px;
   font-weight: 800;
-  color: #1f2937;
+  color: var(--el-text-color-primary);
   margin-bottom: 16px;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   -webkit-background-clip: text;
@@ -90,7 +90,7 @@ import { Monitor, Cpu, Connection } from '@element-plus/icons-vue'
 
 .subtitle {
   font-size: 20px;
-  color: #6b7280;
+  color: var(--el-text-color-secondary);
   max-width: 600px;
   margin: 0 auto;
 }
@@ -105,7 +105,7 @@ import { Monitor, Cpu, Connection } from '@element-plus/icons-vue'
 .text-content h2 {
   font-size: 32px;
   font-weight: 700;
-  color: #1f2937;
+  color: var(--el-text-color-primary);
   margin: 40px 0 20px;
 }
 
@@ -116,7 +116,7 @@ import { Monitor, Cpu, Connection } from '@element-plus/icons-vue'
 .text-content p {
   font-size: 18px;
   line-height: 1.8;
-  color: #4b5563;
+  color: var(--el-text-color-regular);
   margin-bottom: 24px;
 }
 
@@ -131,12 +131,12 @@ import { Monitor, Cpu, Connection } from '@element-plus/icons-vue'
   align-items: center;
   gap: 16px;
   font-size: 18px;
-  color: #374151;
+  color: var(--el-text-color-regular);
   margin-bottom: 16px;
   padding: 16px;
-  background: white;
+  background: var(--el-bg-color-overlay);
   border-radius: 12px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  box-shadow: var(--el-box-shadow-light);
   transition: transform 0.3s;
 }
 
@@ -156,7 +156,7 @@ import { Monitor, Cpu, Connection } from '@element-plus/icons-vue'
 .about-image {
   width: 100%;
   border-radius: 24px;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+  box-shadow: var(--el-box-shadow);
   transition: transform 0.3s;
 }
 

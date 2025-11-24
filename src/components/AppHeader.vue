@@ -12,8 +12,8 @@
             <!-- Desktop Navigation -->
             <nav class="header-nav desktop-nav">
                 <el-menu :default-active="activeRoute" mode="horizontal" :ellipsis="false"
-                    background-color="transparent" text-color="#1f2937" active-text-color="#667eea" class="header-menu"
-                    @select="handleMenuSelect">
+                    background-color="transparent" text-color="var(--el-text-color-primary)" active-text-color="#667eea"
+                    class="header-menu" @select="handleMenuSelect">
                     <el-menu-item index="/">
                         <el-icon>
                             <House />
@@ -98,7 +98,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import {
     Reading,
@@ -140,10 +140,20 @@ const toggleTheme = () => {
     isDark.value = !isDark.value
     if (isDark.value) {
         document.documentElement.classList.add('dark')
+        localStorage.setItem('theme', 'dark')
     } else {
         document.documentElement.classList.remove('dark')
+        localStorage.setItem('theme', 'light')
     }
 }
+
+onMounted(() => {
+    const savedTheme = localStorage.getItem('theme')
+    if (savedTheme === 'dark' || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        isDark.value = true
+        document.documentElement.classList.add('dark')
+    }
+})
 </script>
 
 <style scoped>
@@ -151,10 +161,11 @@ const toggleTheme = () => {
     position: sticky;
     top: 0;
     z-index: 1000;
-    background: rgba(255, 255, 255, 0.95);
+    background: var(--el-bg-color-overlay);
     backdrop-filter: blur(20px);
-    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
-    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.05);
+    border-bottom: 1px solid var(--el-border-color-light);
+    box-shadow: var(--el-box-shadow-light);
+    transition: background-color 0.3s, border-color 0.3s;
 }
 
 .header-container {
@@ -191,8 +202,9 @@ const toggleTheme = () => {
 .logo-text {
     font-size: 24px;
     font-weight: 800;
-    color: #1f2937;
+    color: var(--el-text-color-primary);
     letter-spacing: -0.5px;
+    transition: color 0.3s;
 }
 
 .logo-highlight {
@@ -211,6 +223,7 @@ const toggleTheme = () => {
 
 .header-menu {
     border: none !important;
+    background: transparent !important;
 }
 
 .header-menu :deep(.el-menu-item) {
@@ -219,16 +232,18 @@ const toggleTheme = () => {
     border: none !important;
     transition: all 0.3s;
     padding: 0 20px;
+    color: var(--el-text-color-primary);
 }
 
 .header-menu :deep(.el-menu-item:hover) {
-    background: rgba(102, 126, 234, 0.08) !important;
+    background: var(--el-fill-color-light) !important;
     color: #667eea !important;
 }
 
 .header-menu :deep(.el-menu-item.is-active) {
-    background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+    background: var(--el-color-primary-light-9) !important;
     border-radius: 8px;
+    color: var(--el-color-primary) !important;
 }
 
 .header-menu :deep(.el-icon) {
@@ -243,9 +258,9 @@ const toggleTheme = () => {
 }
 
 .action-btn {
-    background: rgba(102, 126, 234, 0.1);
+    background: var(--el-fill-color-light);
     border: none;
-    color: #667eea;
+    color: var(--el-text-color-regular);
     transition: all 0.3s;
     width: 40px;
     height: 40px;
@@ -264,16 +279,18 @@ const toggleTheme = () => {
 
 .mobile-menu {
     border: none;
+    background: transparent;
 }
 
 .mobile-menu :deep(.el-menu-item) {
     font-weight: 600;
     transition: all 0.3s;
+    color: var(--el-text-color-primary);
 }
 
 .mobile-menu :deep(.el-menu-item.is-active) {
-    background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
-    color: #667eea;
+    background: var(--el-color-primary-light-9);
+    color: var(--el-color-primary);
 }
 
 @media (max-width: 992px) {
@@ -313,12 +330,12 @@ const toggleTheme = () => {
 :deep(.mobile-drawer .el-drawer__header) {
     margin-bottom: 0;
     padding: 20px;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+    border-bottom: 1px solid var(--el-border-color-light);
 }
 
 :deep(.mobile-drawer .el-drawer__title) {
     font-size: 20px;
     font-weight: 700;
-    color: #1f2937;
+    color: var(--el-text-color-primary);
 }
 </style>
